@@ -1,0 +1,12 @@
+#!/bin/sh
+
+configfile="$XDG_CONFIG_HOME/xmrig.json"
+logfile="$XDG_CACHE_HOME/xmrig.log"
+
+case $BLOCK_BUTTON in
+	1) pgrep -c xmrig >/dev/null || xmrig -Bl "$logfile" -c "$configfile" ;;
+	3) notify-send -- "🪙  XMRig Module" "- Shows the current  XMRig mining speed\n- Left click to start XMRig if it isn't running" ;;
+esac
+
+
+cat $logfile | grep speed | tail -1 | awk '{ print $7 }'
